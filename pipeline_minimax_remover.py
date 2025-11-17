@@ -90,9 +90,9 @@ class Minimax_Remover_Pipeline(DiffusionPipeline):
 
     def resize(self, images, w, h):
         bsz,_,_,_,_ = images.shape
-        images = rearrange(images, "b c f w h -> (b f) c w h")
+        images = rearrange(images, "b c f h w -> (b f) c h w")
         images = F.interpolate(images, (w,h), mode='bilinear')
-        images = rearrange(images, "(b f) c w h -> b c f w h", b=bsz)
+        images = rearrange(images, "(b f) c h w -> b c f h w", b=bsz)
         return images
 
     @property
